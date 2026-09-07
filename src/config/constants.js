@@ -1,5 +1,5 @@
 export const API_BASE_URL =
-  import.meta.env.VITE_API_URL ?? "https://restaurants-1-9ff3.onrender.com";
+  import.meta.env.VITE_API_URL ?? "https://restaurants-7.onrender.com";
 
 export const STORAGE_KEYS = {
   TOKEN: "platia_token",
