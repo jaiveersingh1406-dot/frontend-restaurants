@@ -83,12 +83,6 @@ function Navbar() {
                 Contact
               </Link>
             </li>
-
-            <li className="nav-item">
-              <Link className="nav-link" to="/admin">
-                Admin
-              </Link>
-            </li>
           </ul>
 
           <Link
