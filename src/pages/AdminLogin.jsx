@@ -109,7 +109,7 @@ function AdminLoginPage() {
             >
               Use default admin
             </button>
-            <Link to="/" className="text-warning text-decoration-none">
+            <Link to="/home" className="text-warning text-decoration-none">
               ← Back to site
             </Link>
           </div>

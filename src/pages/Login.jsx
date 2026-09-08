@@ -34,7 +34,7 @@ function LoginPage() {
       } else if (user.role === ROLES.ADMIN) {
         navigate("/admin", { replace: true });
       } else {
-        navigate("/", { replace: true });
+        navigate("/home", { replace: true });
       }
     } catch (err) {
       setError(

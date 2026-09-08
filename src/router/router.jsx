@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom';
 
 import HomePage from '../pages/HomePage';
 import Hero from '../pages/Hero';
+import LandingGate from '../pages/LandingGate';
 import About from '../pages/About';
 import Menu from '../pages/Menu';
 import Gallery from '../pages/Gallery';
@@ -31,8 +32,10 @@ function Router() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<LandingGate />} />
+
         <Route path="/" element={<Layout />}>
-          <Route index element={<HomePage />} />
+          <Route path="home" element={<HomePage />} />
           <Route path="hero" element={<Hero />} />
           <Route path="about" element={<About />} />
           <Route path="menu" element={<Menu />} />

@@ -97,7 +97,7 @@ function AdminLayout() {
               Logout
             </button>
 
-            <NavLink to="/" className="btn btn-outline-warning btn-sm rounded-pill">
+            <NavLink to="/home" className="btn btn-outline-warning btn-sm rounded-pill">
               Back to Site
             </NavLink>
           </div>

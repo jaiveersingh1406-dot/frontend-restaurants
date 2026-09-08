@@ -35,7 +35,7 @@ function Navbar() {
       }`}
     >
       <div className="container">
-        <Link className="navbar-brand fw-bold fs-2" to="/">
+        <Link className="navbar-brand fw-bold fs-2" to="/home">
           PLATIA
         </Link>
 
@@ -55,7 +55,7 @@ function Navbar() {
         >
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <Link className="nav-link active" to="/">
+              <Link className="nav-link active" to="/home">
                 Home
               </Link>
             </li>

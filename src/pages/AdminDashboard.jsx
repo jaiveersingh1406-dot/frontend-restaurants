@@ -75,7 +75,7 @@ function AdminDashboard() {
                 <option value="month">Last 30 Days</option>
               </select>
             </div>
-            <Link to="/" className="btn btn-outline-light rounded-pill px-4">Back to Site</Link>
+            <Link to="/home" className="btn btn-outline-light rounded-pill px-4">Back to Site</Link>
             <button className="btn btn-warning rounded-pill px-4" onClick={() => window.print()}>Export Report</button>
           </div>
         </div>
