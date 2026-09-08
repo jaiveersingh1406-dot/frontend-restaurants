@@ -11,3 +11,11 @@ export function getChefs() {
 export function getGallery() {
   return apiClient.get("/content/gallery");
 }
+
+export function sendMessage(messageData) {
+  return apiClient.post("/content/messages", messageData);
+}
+
+export function getMessages() {
+  return apiClient.get("/content/messages");
+}

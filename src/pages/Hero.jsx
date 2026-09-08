@@ -1,6 +1,7 @@
-import video from "../assets/video/227128.mp4";
 import { Link } from "react-router-dom";
 import { Typewriter } from "react-simple-typewriter";
+
+const HERO_VIDEO_URL = "https://res.cloudinary.com/dnjau9zjm/video/upload/q_auto,f_mp4/v1788891958/platia/ygmntykfkzhjoyd24xjl.mp4";
 
 
 function Hero() {
@@ -11,9 +12,10 @@ function Hero() {
         muted
         loop
         playsInline
+        preload="auto"
         className="hero-video"
       >
-        <source src={video} type="video/mp4" />
+        <source src={HERO_VIDEO_URL} type="video/mp4" />
       </video>
 
       <div className="overlay"></div>
