@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { deleteProduct, getProducts } from "../api/productsApi";
 import EmptyState from "../components/common/EmptyState";
@@ -11,6 +11,7 @@ function AdminMenu() {
   const [menuItems, setMenuItems] = useState([]);
   const [fetching, setFetching] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const getProductsData = async () => {
     try {
@@ -62,7 +63,11 @@ function AdminMenu() {
         badge="Menu"
         title="Inventory & Pricing"
         actions={
-          <button className="btn btn-warning rounded-pill px-4">
+          <button
+            type="button"
+            className="btn btn-warning rounded-pill px-4"
+            onClick={() => navigate("/admin/products")}
+          >
             Add Dish
           </button>
         }
