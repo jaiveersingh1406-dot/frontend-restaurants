@@ -85,6 +85,11 @@ function CartPage() {
     event.preventDefault();
     setError(null);
 
+    if (!isAuthenticated) {
+      setError("You must be logged in to place an order. Please login or sign up first.");
+      return;
+    }
+
     const fieldErrors = validate();
     setErrors(fieldErrors);
     if (Object.keys(fieldErrors).length > 0) {
@@ -446,15 +451,30 @@ function CartPage() {
                 )}
 
                 <div className="d-flex flex-wrap gap-2 mt-2">
-                  <button
-                    type="submit"
-                    className="btn btn-warning rounded-pill px-5 fw-bold"
-                    disabled={placing}
-                  >
-                    {placing
-                      ? "Starting Payment..."
-                      : `Pay ₹${total} · Razorpay`}
-                  </button>
+                  {isAuthenticated ? (
+                    <button
+                      type="submit"
+                      className="btn btn-warning rounded-pill px-5 fw-bold"
+                      disabled={placing}
+                    >
+                      {placing
+                        ? "Starting Payment..."
+                        : `Pay ₹${total} · Razorpay`}
+                    </button>
+                  ) : (
+                    <div className="w-100">
+                      <div className="alert alert-warning py-2 mb-2">
+                        Please <Link to="/login">login</Link> or{" "}
+                        <Link to="/signup">sign up</Link> to place your order.
+                      </div>
+                      <Link to="/login" className="btn btn-warning rounded-pill px-5 fw-bold me-2">
+                        Login to Checkout
+                      </Link>
+                      <Link to="/signup" className="btn btn-outline-warning rounded-pill px-4">
+                        Sign Up
+                      </Link>
+                    </div>
+                  )}
                   <button
                     type="button"
                     className="btn btn-outline-danger rounded-pill px-4"
