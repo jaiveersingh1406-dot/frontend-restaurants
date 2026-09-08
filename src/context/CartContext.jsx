@@ -6,7 +6,7 @@ const CartContext = createContext(null);
 
 function loadCart() {
   try {
-    const stored = localStorage.getItem(STORAGE_KEYS.CART);
+    const stored = sessionStorage.getItem(STORAGE_KEYS.CART);
     const parsed = stored ? JSON.parse(stored) : [];
 
     if (!Array.isArray(parsed)) return [];
@@ -28,7 +28,7 @@ export function CartProvider({ children }) {
   const [items, setItems] = useState(loadCart);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(items));
+    sessionStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(items));
   }, [items]);
 
   const addItem = (product) => {
