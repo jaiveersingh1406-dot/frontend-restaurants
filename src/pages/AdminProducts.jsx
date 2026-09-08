@@ -173,9 +173,8 @@ function AdminProducts() {
       console.error("POST Product Error:", err);
 
       alert(
-        err?.detail
-          ? String(err.detail)
-          : "Product insert failed. Please check backend."
+        err?.message ||
+          (err?.detail ? String(err.detail) : "Product insert failed. Please check backend.")
       );
 
     } finally {
@@ -192,7 +191,7 @@ function AdminProducts() {
       await fetchProducts();
     } catch (err) {
       console.error("DELETE Product Error:", err);
-      alert(err?.detail ? String(err.detail) : "Product delete failed. Please check backend.");
+      alert(err?.message || (err?.detail ? String(err.detail) : "Product delete failed. Please check backend."));
     }
   };
 
