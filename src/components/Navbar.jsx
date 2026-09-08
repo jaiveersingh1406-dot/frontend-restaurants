@@ -120,6 +120,15 @@ function Navbar() {
                 {user?.name || user?.email}
               </span>
 
+              {isAdmin && (
+                <Link
+                  to="/admin"
+                  className="btn btn-warning rounded-pill ms-2 px-4"
+                >
+                  Admin Dashboard
+                </Link>
+              )}
+
               <button
                 type="button"
                 onClick={handleLogout}
