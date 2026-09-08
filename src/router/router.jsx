@@ -1,7 +1,6 @@
 import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom';
 
 import HomePage from '../pages/HomePage';
-import Hero from '../pages/Hero';
 import LandingGate from '../pages/LandingGate';
 import About from '../pages/About';
 import Menu from '../pages/Menu';
@@ -36,7 +35,6 @@ function Router() {
 
         <Route path="/" element={<Layout />}>
           <Route path="home" element={<HomePage />} />
-          <Route path="hero" element={<Hero />} />
           <Route path="about" element={<About />} />
           <Route path="menu" element={<Menu />} />
           <Route path="gallery" element={<Gallery />} />

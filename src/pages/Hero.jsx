@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { Typewriter } from "react-simple-typewriter";
 
 const HERO_VIDEO_URL = "https://res.cloudinary.com/dnjau9zjm/video/upload/q_auto,f_mp4/v1788891958/platia/ygmntykfkzhjoyd24xjl.mp4";
 
