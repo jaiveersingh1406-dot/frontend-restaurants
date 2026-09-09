@@ -10,9 +10,30 @@ import StarRating from "../components/common/StarRating";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
 import { parsePrice } from "../config/constants";
-import { FaHeart, FaRegHeart, FaSearch } from "react-icons/fa";
+import {
+  FaHeart,
+  FaRegHeart,
+  FaSearch,
+  FaSlidersH,
+  FaTimes,
+} from "react-icons/fa";
 
 const PAGE_SIZE = 6;
+
+const RATING_FILTERS = [
+  { label: "Any", value: 0 },
+  { label: "4.5★ & up", value: 4.5 },
+  { label: "4★ & up", value: 4 },
+  { label: "3★ & up", value: 3 },
+];
+
+const SORT_OPTIONS = [
+  { label: "Recommended", value: "recommended" },
+  { label: "Price: Low to High", value: "price-asc" },
+  { label: "Price: High to Low", value: "price-desc" },
+  { label: "Top Rated", value: "rating" },
+  { label: "Name: A to Z", value: "name" },
+];
 
 function flyToCart(sourceEl) {
   const cart = document.querySelector(".cart-btn");
@@ -59,6 +80,10 @@ function Menu() {
   const [addedId, setAddedId] = useState(null);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
+  const [minRating, setMinRating] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(0);
+  const [sortBy, setSortBy] = useState("recommended");
+  const [filterOpen, setFilterOpen] = useState(false);
   const [page, setPage] = useState(1);
   const timerRef = useRef(null);
 
@@ -94,6 +119,15 @@ function Menu() {
     return ["All", ...unique];
   }, [availableProducts]);
 
+  const maxAvailablePrice = useMemo(
+    () =>
+      availableProducts.reduce(
+        (max, p) => Math.max(max, parsePrice(p.price)),
+        0
+      ),
+    [availableProducts]
+  );
+
   const filtered = useMemo(() => {
     const query = search.trim().toLowerCase();
 
@@ -101,6 +135,14 @@ function Menu() {
 
     if (category !== "All") {
       result = result.filter((p) => p.category === category);
+    }
+
+    if (minRating > 0) {
+      result = result.filter((p) => Number(p.rating || 0) >= minRating);
+    }
+
+    if (maxPrice > 0) {
+      result = result.filter((p) => parsePrice(p.price) <= maxPrice);
     }
 
     if (query) {
@@ -111,8 +153,36 @@ function Menu() {
       );
     }
 
-    return result;
-  }, [availableProducts, category, search]);
+    const sorted = [...result];
+
+    switch (sortBy) {
+      case "price-asc":
+        sorted.sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
+        break;
+      case "price-desc":
+        sorted.sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
+        break;
+      case "rating":
+        sorted.sort((a, b) => Number(b.rating || 0) - Number(a.rating || 0));
+        break;
+      case "name":
+        sorted.sort((a, b) =>
+          (a.name || "").localeCompare(b.name || "")
+        );
+        break;
+      default:
+        break;
+    }
+
+    return sorted;
+  }, [availableProducts, category, search, minRating, maxPrice, sortBy]);
+
+  const activeFilterCount = [
+    category !== "All",
+    minRating > 0,
+    maxPrice > 0,
+    search.trim() !== "",
+  ].filter(Boolean).length;
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
@@ -124,7 +194,15 @@ function Menu() {
 
   useEffect(() => {
     setPage(1);
-  }, [search, category]);
+  }, [search, category, minRating, maxPrice, sortBy]);
+
+  const clearFilters = () => {
+    setSearch("");
+    setCategory("All");
+    setMinRating(0);
+    setMaxPrice(0);
+    setSortBy("recommended");
+  };
 
   const getCartQty = (productId) =>
     items.find((item) => item.key === productId)?.qty ?? 0;
@@ -164,7 +242,7 @@ function Menu() {
             </div>
           </div>
 
-          <div className="menu-category-slider mb-5">
+          <div className="menu-category-slider mb-3">
             <div className="menu-category-track">
               {categories.map((cat) => (
                 <button
@@ -178,6 +256,92 @@ function Menu() {
               ))}
             </div>
           </div>
+
+          <div className="menu-filter-bar mb-4">
+            <button
+              type="button"
+              className={`btn menu-filter-toggle${filterOpen ? " active" : ""}`}
+              onClick={() => setFilterOpen((prev) => !prev)}
+            >
+              <FaSlidersH /> Filters
+              {activeFilterCount > 0 && (
+                <span className="menu-filter-count">{activeFilterCount}</span>
+              )}
+            </button>
+
+            <select
+              className="form-select menu-sort-select"
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              aria-label="Sort dishes"
+            >
+              {SORT_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  Sort: {opt.label}
+                </option>
+              ))}
+            </select>
+
+            {activeFilterCount > 0 && (
+              <button
+                type="button"
+                className="menu-clear-btn"
+                onClick={clearFilters}
+              >
+                <FaTimes /> Clear ({activeFilterCount})
+              </button>
+            )}
+          </div>
+
+          {filterOpen && (
+            <div className="menu-filter-panel mb-4">
+              <div className="row g-4">
+                <div className="col-12 col-md-6 col-lg-4">
+                  <label className="filter-label">Rating</label>
+                  <div className="d-flex flex-wrap gap-2">
+                    {RATING_FILTERS.map((rf) => (
+                      <button
+                        key={rf.value}
+                        type="button"
+                        className={`category-chip small${minRating === rf.value ? " active" : ""}`}
+                        onClick={() => setMinRating(rf.value)}
+                      >
+                        {rf.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="col-12 col-md-6 col-lg-4">
+                  <label className="filter-label">
+                    Max Price: ₹{maxPrice > 0 ? Number(maxPrice).toLocaleString() : "Any"}
+                  </label>
+                  <input
+                    type="range"
+                    className="form-range menu-price-range"
+                    min="0"
+                    max={Math.max(maxAvailablePrice, 1)}
+                    step="10"
+                    value={maxPrice > 0 ? Math.min(maxPrice, maxAvailablePrice || maxPrice) : 0}
+                    onChange={(e) => setMaxPrice(Number(e.target.value))}
+                    disabled={maxAvailablePrice <= 0}
+                  />
+                  <div className="d-flex justify-content-between small text-muted">
+                    <span>₹0</span>
+                    <button
+                      type="button"
+                      className="btn btn-link btn-sm p-0 text-decoration-none"
+                      onClick={() => setMaxPrice(0)}
+                      disabled={maxPrice === 0}
+                    >
+                      Reset
+                    </button>
+                    <span>₹{maxAvailablePrice.toLocaleString()}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           {error && <ErrorAlert error={error} onRetry={fetchProducts} />}
 
