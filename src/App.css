@@ -1225,3 +1225,209 @@ textarea.form-control {
     font-size: 3rem;
     margin-bottom: 12px;
 }
+
+/*================ SEARCH =================*/
+.menu-search-box {
+    position: relative;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.menu-search-icon {
+    position: absolute;
+    top: 50%;
+    left: 18px;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 16px;
+    z-index: 2;
+}
+
+.menu-search-input {
+    height: 54px;
+    border-radius: 30px;
+    padding-left: 46px;
+    padding-right: 20px;
+    border: 2px solid #e5e5e5;
+    transition: border-color .3s;
+}
+
+.menu-search-input:focus {
+    border-color: #ffc107;
+    box-shadow: 0 0 0 .2rem rgba(255, 193, 7, .15);
+}
+
+/*================ CATEGORY SLIDER =================*/
+.menu-category-slider {
+    overflow-x: auto;
+    padding: 4px 2px 12px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+}
+
+.menu-category-track {
+    display: flex;
+    gap: 10px;
+    width: max-content;
+    margin: 0 auto;
+}
+
+.category-chip {
+    border: 2px solid #e0e0e0;
+    background: #fff;
+    color: #555;
+    padding: 8px 22px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+    transition: all .3s;
+}
+
+.category-chip:hover {
+    border-color: #ffc107;
+    color: #212529;
+}
+
+.category-chip.active {
+    background: #ffc107;
+    border-color: #ffc107;
+    color: #212529;
+}
+
+/*================ WISHLIST =================*/
+.wishlist-btn {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, .92);
+    color: #888;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .3s;
+    z-index: 3;
+}
+
+.wishlist-btn:hover { transform: scale(1.1); }
+
+.wishlist-btn.active { color: #dc3545; background: #fff; }
+
+.wishlist-btn.large {
+    width: 50px;
+    height: 50px;
+    top: 18px;
+    right: 18px;
+    font-size: 20px;
+}
+
+.menu-card-img-wrap {
+    position: relative;
+    overflow: hidden;
+}
+
+.category-badge {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    background: rgba(0, 0, 0, .55);
+    color: #ffc107;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 20px;
+    backdrop-filter: blur(4px);
+    z-index: 3;
+}
+
+.wishlist-btn-nav { border: 1px solid rgba(255, 255, 255, .3); color: #fff; }
+.wishlist-btn-nav:hover { color: #fff; border-color: #ffc107; }
+
+.wishlist-badge {
+    font-size: 11px;
+}
+
+/*================ PAGINATION =================*/
+.menu-section .pagination .page-link {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 4px;
+    border-radius: 50%;
+    border: none;
+    color: #555;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+    font-weight: 600;
+    transition: all .3s;
+}
+
+.menu-section .pagination .page-link:hover {
+    background: #ffc107;
+    color: #212529;
+}
+
+.menu-section .pagination .page-item.active .page-link {
+    background: #ffc107;
+    color: #212529;
+}
+
+.menu-section .pagination .page-item.disabled .page-link {
+    color: #ccc;
+    box-shadow: none;
+}
+
+/*================ STAR RATING =================*/
+.star-rating { line-height: 1; }
+.star-rating svg { vertical-align: -2px; }
+
+/*================ PRODUCT DETAIL =================*/
+.product-detail-main-img {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .1);
+}
+
+.product-detail-thumbs {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+}
+
+.thumb-btn {
+    flex: 0 0 auto;
+    width: 84px;
+    height: 84px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 3px solid transparent;
+    padding: 0;
+    cursor: pointer;
+    background: #fff;
+    transition: all .3s;
+}
+
+.thumb-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thumb-btn:hover { border-color: #ffc107; }
+
+.thumb-btn.active { border-color: #ffc107; }
+
+.product-detail-info { padding-top: 8px; }
+.product-detail-info .price { font-size: 28px; }

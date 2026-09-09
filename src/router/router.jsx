@@ -4,6 +4,8 @@ import HomePage from '../pages/HomePage';
 import LandingGate from '../pages/LandingGate';
 import About from '../pages/About';
 import Menu from '../pages/Menu';
+import ProductDetail from '../pages/ProductDetail';
+import WishlistPage from '../pages/WishlistPage';
 import Gallery from '../pages/Gallery';
 import Contact from '../pages/Contact';
 import Reservation from '../pages/Reservation';
@@ -37,6 +39,8 @@ function Router() {
           <Route path="home" element={<HomePage />} />
           <Route path="about" element={<About />} />
           <Route path="menu" element={<Menu />} />
+          <Route path="product/:id" element={<ProductDetail />} />
+          <Route path="wishlist" element={<WishlistPage />} />
           <Route path="gallery" element={<Gallery />} />
           <Route path="contact" element={<Contact />} />
           <Route path="reservation" element={<Reservation />} />

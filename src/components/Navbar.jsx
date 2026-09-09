@@ -3,12 +3,14 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
+import { useWishlist } from "../context/WishlistContext";
 
 function Navbar() {
   const [scroll, setScroll] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { isAuthenticated, isAdmin, user, logout } = useAuth();
   const { count } = useCart();
+  const { count: wishlistCount } = useWishlist();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -84,6 +86,23 @@ function Navbar() {
               </Link>
             </li>
           </ul>
+
+          <Link
+            to="/wishlist"
+            className={`btn rounded-pill ms-lg-3 ms-0 position-relative wishlist-btn-nav${
+              wishlistCount > 0 ? " has-items" : ""
+            }`}
+          >
+            ♥ Wishlist
+            {wishlistCount > 0 && (
+              <span
+                key={wishlistCount}
+                className="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-danger wishlist-badge"
+              >
+                {wishlistCount}
+              </span>
+            )}
+          </Link>
 
           <Link
             to="/cart"

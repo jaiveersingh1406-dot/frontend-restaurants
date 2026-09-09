@@ -150,6 +150,8 @@ function AdminProducts() {
       stock: Number(form.stock),
       status: form.status,
       image: form.image,
+      rating: Number(form.rating) || 0,
+      images: (form.images || []).filter(Boolean),
     };
 
     console.log("POST DATA:", productData);
@@ -370,6 +372,28 @@ function AdminProducts() {
 
             </div>
 
+            {/* RATING */}
+
+            <div className="mb-3">
+
+              <label className="form-label">
+                Rating (0 - 5)
+              </label>
+
+              <input
+                type="number"
+                name="rating"
+                className="form-control"
+                value={form.rating}
+                onChange={handleChange}
+                placeholder="4.5"
+                min="0"
+                max="5"
+                step="0.1"
+              />
+
+            </div>
+
             {/* IMAGE UPLOAD (DRAG & DROP) */}
 
             <div className="mb-3">
@@ -475,6 +499,34 @@ function AdminProducts() {
 
               </div>
             )}
+
+            {/* ADDITIONAL IMAGES (GALLERY) */}
+
+            <div className="mb-3">
+
+              <label className="form-label">
+                Additional Gallery Images
+              </label>
+
+              <input
+                type="text"
+                className="form-control"
+                placeholder="https://example.com/img1.jpg, https://example.com/img2.jpg"
+                value={(form.images || []).join(", ")}
+                onChange={(e) => {
+                  const urls = e.target.value
+                    .split(",")
+                    .map((u) => u.trim())
+                    .filter(Boolean);
+                  setForm((prev) => ({ ...prev, images: urls }));
+                }}
+              />
+
+              <small className="text-muted">
+                Comma-separated image URLs (shown as gallery on the product page).
+              </small>
+
+            </div>
 
             {/* SAVE BUTTON */}
 

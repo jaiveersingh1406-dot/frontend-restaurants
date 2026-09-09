@@ -6,6 +6,7 @@ export const STORAGE_KEYS = {
   USER: "platia_user",
   LAST_LOGIN: "platia_last_login",
   CART: "platia_cart",
+  WISHLIST: "platia_wishlist",
 };
 
 export const ORDER_STATUSES = ["Pending", "Preparing", "Completed", "Cancelled"];
@@ -50,6 +51,8 @@ export const PRODUCT_FORM_TEMPLATE = {
   stock: "",
   status: PRODUCT_STATUSES[0],
   image: "",
+  images: [],
+  rating: 5,
 };
 
 export const ACCOUNTING_FORM_TEMPLATE = {
